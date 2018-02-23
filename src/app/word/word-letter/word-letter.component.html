@@ -1,0 +1,5 @@
+<button
+    [disabled]="!selectedLetter || disabled"
+    (click)="onRemove()"
+    class="btn"> {{selectedLetter}}
+</button>

@@ -1,0 +1,38 @@
+.main-nav {
+    height: 100px;
+    background-color: #fff !important;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.main-nav .navbar-collapse {
+    transition: height 0.300s ease;
+}
+
+.navbar-toggler i {
+    font-size: 25px;
+}
+
+.mobileSidebarContainer{
+    overflow: auto;
+}
+
+.navbar .navbar-collapse.show { 
+    max-height: calc(100vh - 10vh); 
+    overflow-y:scroll!important; 
+    overflow-x:hidden!important; 
+}
+
+@media(max-width: 900px) {
+    .main-nav .navbar-collapse {
+        top: 100px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        padding: 15px;
+        background-color: #fff;
+        border-top: 3px solid #f8f9fa;
+    }
+    .navbar-nav {
+        width: 100% !important;
+    }
+}

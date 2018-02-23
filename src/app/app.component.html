@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top main-nav">
+  <a class="navbar-brand" href="#">4Pics1Word</a>
+  <button (click)="onToggleNavbar()" class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbar4PicsContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i *ngIf="isCollapsed" class="fas fa-bars"></i>
+    <i *ngIf="!isCollapsed" class="fas fa-times"></i>
+  </button>
+  <div 
+    class="mobileSidebarContainer collapse navbar-collapse my-lg-0" 
+    id="navbar4PicsContent"
+    [collapse]="isCollapsed">
+    <ul class="navbar-nav ml-sm-auto d-flex justify-content-between w-50">
+      <li class="nav-item active w-100 text-center">
+        <h5 class="text-muted">Difficulty: {{difficulty}}</h5>
+      </li>
+      <li class="nav-item w-100 text-center">
+        <h5 class="text-muted">Points: {{points}}</h5>
+      </li>
+    </ul>
+  </div>
+</nav>
+<app-modal></app-modal>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 offset-md-3">
+      <app-pic [pic]="currentPic"></app-pic>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 offset-md-3">
+      <app-word 
+        [word]="currentPic"
+        *ngIf="!allRevealed"></app-word>
+      <h3 *ngIf="allRevealed" class="text-muted mt-3">{{wordService.currentWord}}</h3>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 offset-md-3">
+      <div class="row">
+        <app-letters [word]="currentPic" class="col-10"></app-letters>
+        <app-actions class="col-2"></app-actions>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 offset-md-3">
+      <button 
+        (click)="onNext()"
+        *ngIf="allRevealed" 
+        class="btn btn-block btn-secondary mt-3">Next Pic</button>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

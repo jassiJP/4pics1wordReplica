@@ -1,0 +1,8 @@
+<div class="row">
+  <app-letter
+    *ngFor="let letter of letterSet; let i = index"
+    [letter]=letter
+    [letterIndex]=i
+    class="col-2">
+  </app-letter>
+</div>

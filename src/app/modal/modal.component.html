@@ -1,0 +1,121 @@
+<div id="statusModal" class="modal fade" bsModal #statusModal="bs-modal" *ngIf="isModalShown" [config]="{ show: true, backdrop: 'static' }"
+     (onHidden)="onHidden('statusModal')" tabindex="-1" role="dialog" aria-labelledby="Next Level" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{modalData.title}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3">Difficulty</div>
+          <div class="col-6">{{modalData.difficulty}}</div>
+        </div>
+        <div class="row">
+          <div class="col-3">Points</div>
+          <div class="col-6">{{modalData.points}}</div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <button (click)="onNextPic()" class="btn btn-block btn-primary">Next Pic</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="diffModal" class="modal fade" bsModal #diffModal="bs-modal" *ngIf="isDiffModalShown" [config]="{ show: true, backdrop: 'static' }"
+     (onHidden)="onHidden('diffModal')" tabindex="-1" role="dialog" aria-labelledby="Next Difficult" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <div class="jumbotron">
+          <h5 class="text-muted">Difficulty Increased !</h5>
+          <h4 class="lead">well done</h4>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="close btn-block btn btn-default" aria-label="Close" (click)="diffModal.hide()">
+                close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="warningModal" class="modal fade" bsModal #warningModal="bs-modal" *ngIf="isWarningModalShown" [config]="{ show: true, backdrop: 'static' }"
+     (onHidden)="onHidden('warningModal')" tabindex="-1" role="dialog" aria-labelledby="warningModal" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <div class="jumbotron" *ngIf="actionArgs.message.length > 0">
+          <h5 class="text-muted">{{actionArgs.message}}</h5>
+          <div class="row mt-3">
+            <div class="col-6 offset-3">
+              <button type="button" class="btn-block btn btn-default" aria-label="Close" (click)="warningModal.hide()">
+                close
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="jumbotron" *ngIf="actionArgs.name === 'reveal-all' && actionArgs.message.length === 0">
+          <h5 class="text-muted">Reveal the Word?</h5>
+          <h4>10 Points will be deducted</h4>
+          <div class="row mt-3">
+            <div class="col-6">
+              <button type="button" class="btn-block btn btn-warning" aria-label="Close" (click)="onContinue('reveal', 'reveal-all')">
+                continue
+              </button>
+              
+            </div>
+             <div class="col-6">
+              <button type="button" class="btn-block btn btn-default" aria-label="Close" (click)="warningModal.hide()">
+                close
+              </button>
+            </div>
+            
+          </div>
+        </div>
+        <div class="jumbotron" *ngIf="actionArgs.name === '1-reveal' && actionArgs.message.length === 0">
+          <h5 class="text-muted">Reveal first letter?</h5>
+          <h4>4 Points will be deducted</h4>
+          <div class="row mt-3">
+            <div class="col-6">
+              <button type="button" class="btn-block btn btn-warning" aria-label="Close" (click)="onContinue('hint', '1-reveal')">
+                continue
+              </button>
+              
+            </div>
+             <div class="col-6">
+              <button type="button" class="btn-block btn btn-default" aria-label="Close" (click)="warningModal.hide()">
+                close
+              </button>
+            </div>
+            
+          </div>
+        </div>
+        <div class="jumbotron" *ngIf="actionArgs.name === '4-remove' && actionArgs.message.length === 0">
+          <h5 class="text-muted">Remove few unwanted letters?</h5>
+          <h4>4 Points will be deducted</h4>
+          <div class="row mt-3">
+            <div class="col-6">
+              <button type="button" class="btn-block btn btn-warning" aria-label="Close" (click)="onContinue('hint', '4-remove')">
+                continue
+              </button>
+              
+            </div>
+             <div class="col-6">
+              <button type="button" class="btn-block btn btn-default" aria-label="Close" (click)="warningModal.hide()">
+                close
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
