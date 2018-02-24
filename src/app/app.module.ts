@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { AppComponent } from './app.component';
 import { AppRouting } from './app-routing.module';
@@ -37,8 +36,7 @@ import { ActionService } from "./actions/action.service";
     BrowserModule,
     AppRouting,
     CollapseModule.forRoot(),
-    ModalModule.forRoot(),
-    TooltipModule.forRoot()
+    ModalModule.forRoot()
   ],
   providers: [DataService, WordService, PicsService, PointsService, ModalService, ActionService],
   bootstrap: [AppComponent]
