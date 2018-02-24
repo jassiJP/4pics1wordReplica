@@ -89,7 +89,6 @@ export class ActionService {
                     if (option.name === name && !option.taken) {
                         option.taken ? avail = false : avail = true;
                         message = '';
-                        console.log('1');
                     } else if (option.taken) {
                         avail = false;
                         message = 'Action Already Taken!';
@@ -97,7 +96,6 @@ export class ActionService {
                 }); 
             }
         });
-        console.log("AVAAAA: ", avail);
         if (!avail && name === '1-reveal' && tempaction === 'hint') {
             return false
         } else {
@@ -108,7 +106,6 @@ export class ActionService {
 
     checkActionAvailable(tempaction, name) {
         const optionPoints = this.getActionPoints(tempaction, name);
-        console.log("POINTSR:  ", optionPoints, this.pointService.currentPoints);
         const avail = this.isActionAvailable(tempaction, name);
         if (!avail) {
             return false
@@ -122,19 +119,14 @@ export class ActionService {
     }
 
     applyAction(action:string, name: string) {
-        //const points = this.getActionPoints(action, name);
-        console.log("applyAction: ", name);
         const avail = this.checkActionAvailable(action, name);
-        console.log(avail);
         if (!avail) {
             this.applyAction('hint', '4-remove');
         } else {
             if (avail[0]) {
                 this.modalService.openModal.next({modalName:'warningModal', action, name, message: avail[1]});
             } else {
-                console.log("action ", action);
                 this.modalService.openModal.next({modalName:'warningModal', action, name, message: avail[1]});
-                console.log("MESSAGE: ", "a"+avail[1]+"a");
             }
         }
         
@@ -155,7 +147,6 @@ export class ActionService {
 
         this.wordService.selectedWord = letters;
         this.wordService.letterSelected.next();
-        console.log("actionRevealAll: ", letters);
         this.pointService.currentPoints -= points;
         this.setActionTaken('reveal', 'reveal-all');
         this.allRevealed.next('all');
@@ -202,7 +193,6 @@ export class ActionService {
                 i++;
             }
         }
-        console.log('randomNumbers ', randomNumbers);
         for(let i=0; i<randomNumbers.length;) {
             if (currentWord.indexOf(letterSet[randomNumbers[i]]) === -1){
                 letterSet[randomNumbers[i]] = '';

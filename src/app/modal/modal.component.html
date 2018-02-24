@@ -46,6 +46,20 @@
   </div>
 </div>
 
+<div id="gameOver" class="modal fade" bsModal #diffModal="bs-modal" *ngIf="isGameOverShown" [config]="{ show: true, backdrop: 'static' }"
+     (onHidden)="onHidden('gameOver')" tabindex="-1" role="dialog" aria-labelledby="gameOver" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <div class="jumbotron">
+          <h5 class="text-muted">Game Over</h5>
+          <h4 class="lead">You are smart!</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="warningModal" class="modal fade" bsModal #warningModal="bs-modal" *ngIf="isWarningModalShown" [config]="{ show: true, backdrop: 'static' }"
      (onHidden)="onHidden('warningModal')" tabindex="-1" role="dialog" aria-labelledby="warningModal" aria-hidden="true">
   <div class="modal-dialog modal-md">

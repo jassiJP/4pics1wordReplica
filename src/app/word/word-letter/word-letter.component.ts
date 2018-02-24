@@ -32,12 +32,9 @@ export class WordLetterComponent implements OnInit {
     });
 
     this.actionService.allRevealed.subscribe((value) => {
-      console.log("ALLDISABKED");
       if (value === "all") {
         this.disabled = true;
       }
-      
-      console.log(this.disabled);
     });
   }
 

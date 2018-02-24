@@ -52,7 +52,6 @@ export class AppComponent {
       this.modalService.modalData['title'] = 'Word Matched!';
       this.modalService.modalData['difficulty'] = this.wordService.currentDifficulty;
       this.modalService.modalData['points'] = this.pointService.currentPoints;
-      console.log("Word Matched", this.modalService.modalData);
       this.difficulty = this.wordService.currentDifficulty;
       this.points = this.pointService.currentPoints
       this.modalService.openModal.next({modalName:'wordMatched', action:'', name:'', message:''});
@@ -73,6 +72,10 @@ export class AppComponent {
         this.allRevealed = true;
         this.wordService.markAnswered(this.wordService.currentDifficulty, this.wordService.currentWordIndex);
       }
+    });
+
+    this.wordService.gameOver.subscribe(() => {
+      this.modalService.openModal.next({modalName:'gameOver', action:'', name:'', message:''})
     });
 
   }

@@ -19,11 +19,13 @@ export class ModalComponent implements OnInit {
   @ViewChild('statusModal') statusModal: ModalDirective;
   @ViewChild('diffModal') diffModal: ModalDirective;
   @ViewChild('warningModal') warningModal: ModalDirective;
+   @ViewChild('gameOver') gameOver: ModalDirective;
 
   isModalShown: boolean = false;
   isNoPointsShown: boolean = false;
   isDiffModalShown: boolean = false;
   isWarningModalShown: boolean = false;
+  isGameOverShown: boolean = false;
 
   whichModal;
 
@@ -36,14 +38,13 @@ export class ModalComponent implements OnInit {
 
   showModal(): void {
     if (this.whichModal === 'difficultyIncreased') {
-      console.log("Diff");
       this.isDiffModalShown = true;
     } else if (this.whichModal === 'wordMatched'){
-      console.log("not Diff");
       this.isModalShown = true;
     } else if (this.whichModal === 'warningModal') {
-      console.log("SHOW MODAL");
       this.isWarningModalShown = true;
+    }else if (this.whichModal === 'gameOver') {
+      this.isGameOverShown = true;
     }
   }
  
@@ -77,13 +78,11 @@ export class ModalComponent implements OnInit {
       this.whichModal = args.modalName;
       
       if (args.action && args.name && !args.message) {
-        console.log(args.action, args.name);
         this.actionArgs['action'] = args.action;
         this.actionArgs['name'] = args.name;
       } else {
         this.actionArgs.message = args.message;
       }
-      console.log(args.modalName);
       if (this.whichModal === 'wordMatched') {
         this.modalData = this.modalService.modalData;
       }

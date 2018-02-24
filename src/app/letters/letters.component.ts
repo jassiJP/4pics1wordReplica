@@ -28,7 +28,6 @@ export class LettersComponent implements OnInit {
 
     this.wordService.currentWordChanged.subscribe(() => {
       this.letterSet = this.wordService.getLetterSet( this.wordService.currentWord );
-      console.log("LETTTTTT: ", this.letterSet);
     });
   }
 

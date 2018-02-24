@@ -7,6 +7,7 @@ import { Pic } from '../pic/pic.model';
 
 @Injectable()
 export class WordService {
+    over: number = 0;
     letterSet = [];
     currentWord: string;
     selectedWord = [];
@@ -21,6 +22,7 @@ export class WordService {
     allLettersFilled = new Subject();
     selectedWordEmpty = new Subject();
     wordMatch = new Subject();
+    gameOver = new Subject();
 
     constructor(private pointService: PointsService,
                 private dataService: DataService) {}
@@ -125,17 +127,8 @@ export class WordService {
         this.selectedWord.forEach((letter) => {
             theWord += letter[0];
         });
-        console.log('theWord: ', theWord, this.currentWord);
 
         let marked = false;
-
-        this.dataService.picsData.forEach((pics, i) => {
-            if(pics.difficulty === this.currentDifficulty) {
-                if(this.dataService.picsData[i].pics[this.currentWordIndex].answered) {
-                    console.log("WWAWA: ", this.dataService.picsData[i].pics[this.currentWordIndex]);
-                }
-            }
-        })
 
         for(let i=0; i<this.dataService.picsData.length; i++) {
             if (this.dataService.picsData[i].difficulty === this.currentDifficulty){
@@ -150,8 +143,6 @@ export class WordService {
             
         }
 
-            console.log("MARKED:   ", marked);
-
         if (theWord === this.currentWord && marked===false) {
             this.allLettersFilled.next(true);
             this.pointService.addPoints(this.currentDifficulty);
@@ -161,9 +152,7 @@ export class WordService {
     }
 
     setDifficulty() {
-        console.log("Difficulty: ", this.currentDifficulty);
         this.currentDifficulty += 1;
-        console.log("CHANGE Difficulty: ", this.currentDifficulty);
         this.setupNewLetters();
         this.setCurrentWord();
         this.difficultyChanged.next(this.currentDifficulty);
@@ -173,26 +162,30 @@ export class WordService {
     setCurrentWord() {
         let nextPic: Pics;
         let allUnAnswered = [];
-        for(let i=0; i<this.dataService.picsData.length;i++) {
-            console.log(this.dataService.picsData[i]);
-            if (this.dataService.picsData[i].difficulty === this.currentDifficulty) {
-                for(let j=0; j< this.dataService.picsData[i].pics.length; j++) {
-                    console.log(this.dataService.picsData[i].pics[j]);
-                    allUnAnswered = this.dataService.picsData[i].pics.filter((pic) => pic.answered === false);
-                    if (allUnAnswered.length > 0 && this.dataService.picsData[i].pics[j].answered === false) {
-                        this.currentWordIndex = j;
-                        nextPic = this.dataService.picsData[i].pics[j];
-                        this.currentWord = nextPic.word;
-                        this.currentPic = nextPic;
-                        this.setupNewLetters();
-                        this.currentWordChanged.next();
-                        break;
-                    } else if (allUnAnswered.length ===0) {
-                        this.setDifficulty();
-                        break;
+        if (this.over >= this.dataService.picsData.length) {
+            this.gameOver.next();
+        } else {
+            for(let i=0; i<this.dataService.picsData.length;i++) {
+                if (this.dataService.picsData[i].difficulty === this.currentDifficulty) {
+                    
+                    for(let j=0; j< this.dataService.picsData[i].pics.length; j++) {
+                        allUnAnswered = this.dataService.picsData[i].pics.filter((pic) => pic.answered === false);
+                        if (allUnAnswered.length > 0 && this.dataService.picsData[i].pics[j].answered === false) {
+                            this.currentWordIndex = j;
+                            nextPic = this.dataService.picsData[i].pics[j];
+                            this.currentWord = nextPic.word;
+                            this.currentPic = nextPic;
+                            this.setupNewLetters();
+                            this.currentWordChanged.next();
+                            break;
+                        } else if (allUnAnswered.length ===0) {
+                            this.over += 1;
+                            this.setDifficulty();
+                            break;
+                        }
                     }
+                    break;
                 }
-                break;
             }
         }
     }

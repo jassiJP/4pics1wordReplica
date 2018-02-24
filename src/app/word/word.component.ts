@@ -42,7 +42,6 @@ export class WordComponent implements OnInit {
 
     this.actionService.allRevealed.subscribe((value) => {
       this.letters.forEach((letter, i) => {
-        console.log(letter);
         if (value === "all") {
           letter = [];
         }
